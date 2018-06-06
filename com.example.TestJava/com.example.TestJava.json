@@ -1,7 +1,7 @@
 {
-    "id": "org.example.TestJava",
+    "id": "com.example.TestJava",
     "branch": "master",
-    "runtime": "org.freedesktop.Sdk",
+    "runtime": "org.freedesktop.Platform",
     "runtime-version": "1.6",
     "sdk": "org.freedesktop.Sdk",
     "sdk-extensions": [
