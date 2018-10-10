@@ -1,0 +1,6 @@
+[submodule "org.freedesktop.Sdk.Extension.openjdk9"]
+	path = org.freedesktop.Sdk.Extension.openjdk9
+	url = git@github.com:flathub/org.freedesktop.Sdk.Extension.openjdk9.git
+[submodule "org.freedesktop.Sdk.Extension.openjdk10"]
+	path = org.freedesktop.Sdk.Extension.openjdk10
+	url = git@github.com:flathub/org.freedesktop.Sdk.Extension.openjdk10.git

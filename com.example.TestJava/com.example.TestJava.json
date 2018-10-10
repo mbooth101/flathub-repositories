@@ -2,7 +2,7 @@
     "id": "com.example.TestJava",
     "branch": "master",
     "runtime": "org.freedesktop.Platform",
-    "runtime-version": "1.6",
+    "runtime-version": "18.08",
     "sdk": "org.freedesktop.Sdk",
     "sdk-extensions": [
         "org.freedesktop.Sdk.Extension.openjdk9",
@@ -113,6 +113,10 @@
                 }
             ],
             "build-commands": [
+                "sh /usr/lib/sdk/openjdk9/install.sh",
+		"mv /app/jre /app/jre9",
+                "sh /usr/lib/sdk/openjdk10/install.sh",
+		"mv /app/jre /app/jre10",
                 "sh /usr/lib/sdk/openjdk9/installjdk.sh",
 		"mv /app/jdk /app/jdk9",
                 "sh /usr/lib/sdk/openjdk10/installjdk.sh",
