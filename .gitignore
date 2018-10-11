@@ -1,5 +1,4 @@
 .flatpak-builder/
 bootstrap_jdk/
-build-jdk/
-build-test/
+jdk-build/
 repo/

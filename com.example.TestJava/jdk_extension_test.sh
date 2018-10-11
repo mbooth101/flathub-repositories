@@ -20,7 +20,12 @@ echo
 javac -version
 echo
 
-echo '## Install Sizes:'
+echo '## Execute Maven:'
+echo
+mvn -version
+echo
+
+echo '## Installed Sizes:'
 echo
 $jdk/install.sh
 $jdk/installjdk.sh
