@@ -6,128 +6,25 @@
     "sdk": "org.freedesktop.Sdk",
     "sdk-extensions": [
         "org.freedesktop.Sdk.Extension.openjdk9",
-        "org.freedesktop.Sdk.Extension.openjdk10"
+        "org.freedesktop.Sdk.Extension.openjdk10",
+        "org.freedesktop.Sdk.Extension.openjdk11"
     ],
     "modules": [
         {
-            "name": "test_enable_9",
-            "buildsystem": "simple",
-            "sources": [
-                {
-                    "type": "script",
-                    "commands": [
-                        "source /usr/lib/sdk/openjdk9/enable.sh",
-			"echo",
-			"echo '## Java:'",
-			"echo",
-			"java -version",
-			"echo",
-			"echo '## Javac:'",
-			"echo",
-			"javac -version",
-			"echo"
-                    ],
-                    "dest-filename": "test.sh"
-                }
-            ],
-            "build-commands": [
-                "sh test.sh"
-            ]
-        },
-        {
-            "name": "test_enable_10",
-            "buildsystem": "simple",
-            "sources": [
-                {
-                    "type": "script",
-                    "commands": [
-                        "source /usr/lib/sdk/openjdk10/enable.sh",
-			"echo",
-			"echo '## Java:'",
-			"echo",
-			"java -version",
-			"echo",
-			"echo '## Javac:'",
-			"echo",
-			"javac -version",
-			"echo"
-                    ],
-                    "dest-filename": "test.sh"
-                }
-            ],
-            "build-commands": [
-                "sh test.sh"
-            ]
-        },
-        {
-            "name": "test_install_scripts_9",
-            "buildsystem": "simple",
-            "sources": [
-                {
-                    "type": "script",
-                    "commands": [
-                        "sh /usr/lib/sdk/openjdk9/install.sh",
-			"ls -l /app/jre/bin",
-                        "/app/jre/bin/java -version",
-                        "sh /usr/lib/sdk/openjdk9/installjdk.sh",
-			"ls -l /app/jdk/bin",
-                        "/app/jdk/bin/java -version",
-                        "rm -rf /app/{jre,jdk}"
-                    ],
-                    "dest-filename": "test.sh"
-                }
-            ],
-            "build-commands": [
-                "sh test.sh"
-            ]
-        },
-        {
-            "name": "test_install_scripts_10",
-            "buildsystem": "simple",
-            "sources": [
-                {
-                    "type": "script",
-                    "commands": [
-                        "sh /usr/lib/sdk/openjdk10/install.sh",
-			"ls -l /app/jre/bin",
-                        "/app/jre/bin/java -version",
-                        "sh /usr/lib/sdk/openjdk10/installjdk.sh",
-			"ls -l /app/jdk/bin",
-                        "/app/jdk/bin/java -version",
-                        "rm -rf /app/{jre,jdk}"
-                    ],
-                    "dest-filename": "test.sh"
-                }
-            ],
-            "build-commands": [
-                "sh test.sh"
-            ]
-        },
-        {
-            "name": "test_cacerts",
+            "name": "test_jdks",
             "buildsystem": "simple",
             "sources": [
                 {
                     "type": "file",
-                    "path": "SSLTest.java"
+                    "path": "jdk_extension_test.sh"
                 }
             ],
             "build-commands": [
-                "sh /usr/lib/sdk/openjdk9/install.sh",
-		"mv /app/jre /app/jre9",
-                "sh /usr/lib/sdk/openjdk10/install.sh",
-		"mv /app/jre /app/jre10",
-                "sh /usr/lib/sdk/openjdk9/installjdk.sh",
-		"mv /app/jdk /app/jdk9",
-                "sh /usr/lib/sdk/openjdk10/installjdk.sh",
-		"mv /app/jdk /app/jdk10",
-                "mkdir /app/stuff",
-		"cp SSLTest.java /app/stuff"
+		"for jdk in /usr/lib/sdk/openjdk* ; do ./jdk_extension_test.sh $jdk ; done"
             ]
         }
     ],
     "finish-args": [
-        "--socket=x11",
         "--share=network",
 	"--share=ipc",
 	"--filesystem=home"
