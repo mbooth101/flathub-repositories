@@ -20,7 +20,7 @@
                 }
             ],
             "build-commands": [
-		"for jdk in /usr/lib/sdk/openjdk* ; do ./jdk_extension_test.sh $jdk ; done"
+                "for jdk in /usr/lib/sdk/openjdk* ; do ./jdk_extension_test.sh $jdk ; done"
             ]
         },
         {
@@ -37,13 +37,13 @@
                 }
             ],
             "build-commands": [
-		"tar xf m2-repo.tar.gz",
-		"source /usr/lib/sdk/openjdk11/enable.sh ; mvn -B -o verify -Dmaven.repo.local=$(pwd)/m2-repo"
+                "tar xf m2-repo.tar.gz",
+                "source /usr/lib/sdk/openjdk11/enable.sh ; mvn -B -o verify -Dmaven.repo.local=$(pwd)/m2-repo"
             ]
         }
     ],
     "finish-args": [
-	"--share=ipc",
-	"--filesystem=home"
+        "--share=ipc",
+        "--filesystem=home"
     ]
 }
