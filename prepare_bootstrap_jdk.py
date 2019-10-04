@@ -8,8 +8,8 @@ import shutil
 import subprocess
 import sys
 
-fedora = "28"
-package = "java-9-openjdk"
+fedora = "29"
+package = "java-11-openjdk"
 
 if not os.path.isdir("bootstrap_jdk"):
     os.mkdir("bootstrap_jdk")
