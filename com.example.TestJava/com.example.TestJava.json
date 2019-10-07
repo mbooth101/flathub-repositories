@@ -1,13 +1,12 @@
 {
     "id": "com.example.TestJava",
     "branch": "master",
-    "runtime": "org.freedesktop.Platform",
-    "runtime-version": "18.08",
+    "runtime": "org.freedesktop.Sdk",
+    "runtime-version": "19.08",
     "sdk": "org.freedesktop.Sdk",
     "sdk-extensions": [
-        "org.freedesktop.Sdk.Extension.openjdk9",
-        "org.freedesktop.Sdk.Extension.openjdk10",
-        "org.freedesktop.Sdk.Extension.openjdk11"
+        "org.freedesktop.Sdk.Extension.openjdk11",
+        "org.freedesktop.Sdk.Extension.openjdk"
     ],
     "modules": [
         {
@@ -20,7 +19,10 @@
                 }
             ],
             "build-commands": [
-                "for jdk in /usr/lib/sdk/openjdk* ; do ./jdk_extension_test.sh $jdk ; done"
+                "ls -l /usr/lib/sdk/",
+                "ls -l /usr/lib/sdk/openjdk*",
+                "ls -l /usr/lib/sdk/openjdk*/jvm",
+                "for jdk in /usr/lib/sdk/openjdk* ;  do ./jdk_extension_test.sh $jdk ; done"
             ]
         },
         {
@@ -38,7 +40,7 @@
             ],
             "build-commands": [
                 "tar xf m2-repo.tar.gz",
-                "source /usr/lib/sdk/openjdk11/enable.sh ; mvn -B -o verify -Dmaven.repo.local=$(pwd)/m2-repo"
+                "source /usr/lib/sdk/openjdk11/enable.sh ; #mvn -V -B -o verify -Dmaven.repo.local=$(pwd)/m2-repo"
             ]
         }
     ],
