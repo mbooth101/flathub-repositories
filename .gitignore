@@ -2,3 +2,4 @@
 bootstrap_jdk/
 jdk-build/
 repo/
+java_apps/*/
