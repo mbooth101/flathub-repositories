@@ -6,3 +6,11 @@
 	path = org.freedesktop.Sdk.Extension.openjdk
 	url = git@github.com:flathub/org.freedesktop.Sdk.Extension.openjdk.git
 	branch = branch/19.08
+[submodule "org.eclipse.Java"]
+	path = org.eclipse.Java
+	url = git@github.com:flathub/org.eclipse.Java.git
+	branch = master
+[submodule "org.eclipse.Committers"]
+	path = org.eclipse.Committers
+	url = git@github.com:flathub/org.eclipse.Committers.git
+	branch = master
