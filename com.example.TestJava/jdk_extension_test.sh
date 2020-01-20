@@ -9,6 +9,11 @@ echo "# Testing $jdk..."
 echo
 
 source $jdk/enable.sh
+ls -l $jdk/jvm/
+echo
+echo "$JAVA_HOME/release:"
+cat $JAVA_HOME/release
+echo
 
 echo '## Execute Java:'
 echo
@@ -20,9 +25,19 @@ echo
 javac -version
 echo
 
+echo '## Execute Ant:'
+echo
+ant -version
+echo
+
 echo '## Execute Maven:'
 echo
 mvn -version
+echo
+
+echo '## Execute Gradle:'
+echo
+gradle -version
 echo
 
 echo '## Installed Sizes:'

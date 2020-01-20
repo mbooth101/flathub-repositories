@@ -19,28 +19,7 @@
                 }
             ],
             "build-commands": [
-                "ls -l /usr/lib/sdk/",
-                "ls -l /usr/lib/sdk/openjdk*",
-                "ls -l /usr/lib/sdk/openjdk*/jvm",
                 "for jdk in /usr/lib/sdk/openjdk* ;  do ./jdk_extension_test.sh $jdk ; done"
-            ]
-        },
-        {
-            "name": "test_shim_maven_build",
-            "buildsystem": "simple",
-            "sources": [
-                {
-                    "type": "git",
-                    "url": "https://github.com/mbooth101/flatpak-dev-shim.git"
-                },
-                {
-                    "type": "file",
-                    "path": "m2-repo.tar.gz"
-                }
-            ],
-            "build-commands": [
-                "tar xf m2-repo.tar.gz",
-                "source /usr/lib/sdk/openjdk11/enable.sh ; #mvn -V -B -o verify -Dmaven.repo.local=$(pwd)/m2-repo"
             ]
         }
     ],
