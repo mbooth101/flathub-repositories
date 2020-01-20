@@ -13,7 +13,7 @@ error_apps = {}
 
 for r in gh_repos:
     # Skip themes and SDK extensions, no point in checking them
-    if r.name.startswith('org.gtk.Gtk3theme') or r.name.startswith('org.freedesktop.Sdk.Extension'):
+    if r.name.startswith('org.gtk.Gtk3theme') or r.name.startswith('org.freedesktop.Sdk.Extension') or r.name.startswith('org.kde.PlatformTheme'):
         continue
     # Attempt to download a manifest
     url_json = "https://raw.githubusercontent.com/%s/%s/%s.json" % (r.full_name, r.default_branch, r.name)

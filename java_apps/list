@@ -24,6 +24,7 @@ org.libreoffice.LibreOffice https://github.com/flathub/org.libreoffice.LibreOffi
 org.octave.Octave https://github.com/flathub/org.octave.Octave.git
 org.openstreetmap.josm https://github.com/flathub/org.openstreetmap.josm.git
 org.phoenicis.playonlinux https://github.com/flathub/org.phoenicis.playonlinux.git
+org.robocode.Robocode https://github.com/flathub/org.robocode.Robocode.git
 org.texstudio.TeXstudio https://github.com/flathub/org.texstudio.TeXstudio.git
 org.videolan.VLC.Plugin.bdj https://github.com/flathub/org.videolan.VLC.Plugin.bdj.git
 org.zaproxy.ZAP https://github.com/flathub/org.zaproxy.ZAP.git

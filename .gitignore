@@ -1,5 +1,5 @@
 .flatpak-builder/
 bootstrap_jdk/
-jdk-build/
-repo/
+local-build/
+local-repo/
 java_apps/*/
