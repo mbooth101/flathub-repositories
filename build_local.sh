@@ -8,11 +8,11 @@ for app in $* ; do
 		app="org.freedesktop.Sdk.Extension.$app"
 		openjdk="true"
 	fi
-	flatpak run org.freedesktop.appstream-glib validate $app/*.xml
-	flatpak-builder --force-clean --disable-cache --repo=$localrepo local-build $app/$app.json
-	flatpak remote-add --if-not-exists --no-gpg-verify $localrepo file://$(pwd)/$localrepo
-	flatpak install -y $localrepo $app
-	flatpak update -y $app
+	if [ -f "$app/$app.yaml" ] ; then
+		flatpak-builder --force-clean --disable-cache --user --install local-build $app/$app.yaml
+	else
+		flatpak-builder --force-clean --disable-cache --user --install local-build $app/$app.json
+	fi
 done
 
 # If we built an openjdk, build the test app

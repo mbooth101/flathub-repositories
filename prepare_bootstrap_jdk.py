@@ -2,12 +2,14 @@
 
 import glob
 import hashlib
-import json
 import os
 import shutil
 import subprocess
 import sys
+import yaml
 
+# For building on Freedesktop 18.08, bootstrap binaries must be taken from Fedora 29
+# otherwise "`GLIBC_2.29' not found" error occurs
 fedora = "29"
 package = "java-11-openjdk"
 
@@ -27,7 +29,7 @@ def gen_tarballs():
         if not os.path.isfile("bootstrap_jdk/%s" % tarball):
         
             # Download and explode RPMs
-            for name in ["%s" % package, "%s-devel" % package, "%s-headless" % package]:
+            for name in [package, "%s-devel" % package, "%s-headless" % package]:
                 nvra = "%s-%s.%s" % (name, verrel, arch)
                 if not os.path.isfile("bootstrap_jdk/%s.rpm" % nvra):
                     subprocess.run(["koji", "download-build", "--rpm", nvra], cwd="bootstrap_jdk")
@@ -76,13 +78,21 @@ def gen_sums():
             f.write("%s  %s\n" % (sum['sum'], sum['file']))
     return sums
 
+class MyDumper(yaml.Dumper):
+    def increase_indent(self, flow=False, indentless=False):
+        return super(MyDumper, self).increase_indent(flow, False)
+
 # Update filenames and SHA sums of the bootstrap sources in the Flatpak manifest
 def fettle_manifest(arches, sums):
     print("Updating Flatpak manifests", file=sys.stderr)
-    extension = "org.freedesktop.Sdk.Extension.openjdk%s" % verrel.split('.')[0]
-    manifest = "%s/%s.json" % (extension, extension)
+    major_version = verrel.split('.')[0]
+    if major_version == '11' or major_version == '17':
+        extension = "org.freedesktop.Sdk.Extension.openjdk%s" % major_version
+    else:
+        extension = "org.freedesktop.Sdk.Extension.openjdk"
+    manifest = "%s/%s.yaml" % (extension, extension)
     with open(manifest, 'r') as f:
-        manifest_data = json.load(f)
+        manifest_data = yaml.load(f, Loader=yaml.FullLoader)
     for arch in arches:
         tarball = arches[arch]
         sha512sum = [sum['sum'] for sum in sums if sum['file'] == tarball][0]
@@ -93,7 +103,7 @@ def fettle_manifest(arches, sums):
                 source['sha512'] = sha512sum
 
     with open(manifest, 'w') as f:
-        json.dump(manifest_data, f, indent=4, separators=(',', ': '))
+        yaml.dump(manifest_data, f, Dumper=MyDumper, default_flow_style=False, explicit_start=True, sort_keys=False, width=500)
 
 arch_map = gen_tarballs()
 sum_list = gen_sums()
