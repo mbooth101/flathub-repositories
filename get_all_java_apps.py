@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+# Requires: python3-pygithub python3-json-minify python3-pyyaml
+
 from github import Github
 import requests
 import os
