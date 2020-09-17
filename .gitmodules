@@ -14,3 +14,7 @@
 	path = org.eclipse.Committers
 	url = git@github.com:flathub/org.eclipse.Committers.git
 	branch = master
+[submodule "org.eclipse.Javascript"]
+	path = org.eclipse.Javascript
+	url = git@github.com:flathub/org.eclipse.Javascript.git
+	branch = master
