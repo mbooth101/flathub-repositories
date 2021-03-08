@@ -4,6 +4,7 @@ localrepo="local-repo"
 
 openjdk=
 for app in $* ; do
+	app=${app%/}
 	if [[ $app == openjdk* ]] ; then
 		app="org.freedesktop.Sdk.Extension.$app"
 		openjdk="true"
