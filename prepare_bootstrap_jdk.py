@@ -10,8 +10,8 @@ import yaml
 
 # For building on Freedesktop 18.08, bootstrap binaries must be taken from Fedora 29
 # otherwise "`GLIBC_2.29' not found" error occurs
-fedora = "29"
-package = "java-11-openjdk"
+fedora = "31"
+package = "java-latest-openjdk"
 
 if not os.path.isdir("bootstrap_jdk"):
     os.mkdir("bootstrap_jdk")
