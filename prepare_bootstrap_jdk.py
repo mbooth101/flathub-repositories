@@ -8,9 +8,14 @@ import subprocess
 import sys
 import yaml
 
+# Custom dumper to get indentation right
+class MyDumper(yaml.Dumper):
+    def increase_indent(self, flow=False, indentless=False):
+        return super(MyDumper, self).increase_indent(flow, False)
+
 # For building on Freedesktop 18.08, bootstrap binaries must be taken from Fedora 29
 # otherwise "`GLIBC_2.29' not found" error occurs
-fedora = "31"
+fedora = "32"
 package = "java-latest-openjdk"
 
 if not os.path.isdir("bootstrap_jdk"):
@@ -24,7 +29,7 @@ verrel = "-".join(p.stdout.decode("utf-8").split()[0].split("-")[-2:])
 def gen_tarballs():
     print("Generating tarballs", file=sys.stderr)
     arches = {}
-    for arch in ['i686', 'x86_64', 'armv7hl', 'aarch64']:
+    for arch in ['x86_64', 'armv7hl', 'aarch64']:
         tarball = "bootstrap-openjdk-%s.%s.tar.bz2" % (verrel, arch)
         if not os.path.isfile("bootstrap_jdk/%s" % tarball):
         
@@ -52,8 +57,6 @@ def gen_tarballs():
 
         # Create mapping of arch to tarball
         flatpak_arch = arch
-        if arch == 'i686':
-            flatpak_arch = 'i386'
         if arch == 'armv7hl':
             flatpak_arch = 'arm'
         arches[flatpak_arch] = tarball
@@ -78,10 +81,6 @@ def gen_sums():
             f.write("%s  %s\n" % (sum['sum'], sum['file']))
     return sums
 
-class MyDumper(yaml.Dumper):
-    def increase_indent(self, flow=False, indentless=False):
-        return super(MyDumper, self).increase_indent(flow, False)
-
 # Update filenames and SHA sums of the bootstrap sources in the Flatpak manifest
 def fettle_manifest(arches, sums):
     print("Updating Flatpak manifests", file=sys.stderr)
@@ -92,7 +91,8 @@ def fettle_manifest(arches, sums):
         extension = "org.freedesktop.Sdk.Extension.openjdk"
     manifest = "%s/%s.yaml" % (extension, extension)
     with open(manifest, 'r') as f:
-        manifest_data = yaml.load(f, Loader=yaml.FullLoader)
+        manifest_data = yaml.safe_load(f)
+
     for arch in arches:
         tarball = arches[arch]
         sha512sum = [sum['sum'] for sum in sums if sum['file'] == tarball][0]
@@ -103,7 +103,7 @@ def fettle_manifest(arches, sums):
                 source['sha512'] = sha512sum
 
     with open(manifest, 'w') as f:
-        yaml.dump(manifest_data, f, Dumper=MyDumper, default_flow_style=False, explicit_start=True, sort_keys=False, width=500)
+        yaml.dump(manifest_data, f, Dumper=MyDumper, sort_keys=False, explicit_start=True, width=250, default_flow_style=False)
 
 arch_map = gen_tarballs()
 sum_list = gen_sums()
