@@ -8,15 +8,27 @@ import subprocess
 import sys
 import yaml
 
+# Invokation: $ ./prepare_bootstrap_jdk.py [fedora] [package]
+# Where:
+#   [fedora] is the version of Fedora from which to take packages
+#   [package] is the JDK package kind, e.g.: 11, 17 or latest
+#
+# Note: For building on Freedesktop 18.08, bootstrap binaries must be taken from
+# Fedora 29 otherwise "`GLIBC_2.29' not found" error occurs
+
 # Custom dumper to get indentation right
 class MyDumper(yaml.Dumper):
     def increase_indent(self, flow=False, indentless=False):
         return super(MyDumper, self).increase_indent(flow, False)
 
-# For building on Freedesktop 18.08, bootstrap binaries must be taken from Fedora 29
-# otherwise "`GLIBC_2.29' not found" error occurs
-fedora = "32"
-package = "java-latest-openjdk"
+if len(sys.argv) < 2:
+    fedora = "32"
+else:
+    fedora = sys.argv[1]
+if len(sys.argv) < 3:
+    package = "java-latest-openjdk"
+else:
+    package = "java-%s-openjdk" % sys.argv[2]
 
 if not os.path.isdir("bootstrap_jdk"):
     os.mkdir("bootstrap_jdk")
