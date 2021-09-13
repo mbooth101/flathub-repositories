@@ -15,6 +15,9 @@ import yaml
 #
 # Note: For building on Freedesktop 18.08, bootstrap binaries must be taken from
 # Fedora 29 otherwise "`GLIBC_2.29' not found" error occurs
+#
+# Note: For building on Freedesktop 19.08, bootstrap binaries must be taken from
+# Fedora 32 otherwise "`GLIBC_2.32' not found" error occurs
 
 # Custom dumper to get indentation right
 class MyDumper(yaml.Dumper):
@@ -97,11 +100,15 @@ def gen_sums():
 def fettle_manifest(arches, sums):
     print("Updating Flatpak manifests", file=sys.stderr)
     major_version = verrel.split('.')[0]
-    if major_version == '11' or major_version == '17':
+    # 11 is bootstrapped with 11, 17 is bootstrapped with 16 or 17
+    if major_version == '11' or major_version == '16' or major_version == '17':
+        if major_version == '16':
+            major_version = '17'
         extension = "org.freedesktop.Sdk.Extension.openjdk%s" % major_version
     else:
         extension = "org.freedesktop.Sdk.Extension.openjdk"
     manifest = "%s/%s.yaml" % (extension, extension)
+    print("  %s" % manifest)
     with open(manifest, 'r') as f:
         manifest_data = yaml.safe_load(f)
 
