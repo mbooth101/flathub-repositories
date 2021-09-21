@@ -25,7 +25,7 @@ class MyDumper(yaml.Dumper):
         return super(MyDumper, self).increase_indent(flow, False)
 
 if len(sys.argv) < 2:
-    fedora = "32"
+    fedora = "33"
 else:
     fedora = sys.argv[1]
 if len(sys.argv) < 3:
@@ -37,14 +37,14 @@ if not os.path.isdir("bootstrap_jdk"):
     os.mkdir("bootstrap_jdk")
 
 # Get the verion/release of the latest build from Koji
-p = subprocess.run(["koji", "list-tagged", "--quiet", "--latest", "--inherit", "f%s-updates" % fedora, package], stdout=subprocess.PIPE)
+p = subprocess.run(["koji", "list-tagged", "--quiet", "--latest", "--inherit", "f%s-updates-testing" % fedora, package], stdout=subprocess.PIPE)
 verrel = "-".join(p.stdout.decode("utf-8").split()[0].split("-")[-2:])
 
 # Generate tarballs
 def gen_tarballs():
     print("Generating tarballs", file=sys.stderr)
     arches = {}
-    for arch in ['x86_64', 'armv7hl', 'aarch64']:
+    for arch in ['x86_64', 'aarch64']:
         tarball = "bootstrap-openjdk-%s.%s.tar.bz2" % (verrel, arch)
         if not os.path.isfile("bootstrap_jdk/%s" % tarball):
         
