@@ -1,10 +1,14 @@
-[submodule "org.freedesktop.Sdk.Extension.openjdk11"]
-	path = org.freedesktop.Sdk.Extension.openjdk11
-	url = git@github.com:flathub/org.freedesktop.Sdk.Extension.openjdk11.git
-	branch = branch/21.08
 [submodule "org.freedesktop.Sdk.Extension.openjdk"]
 	path = org.freedesktop.Sdk.Extension.openjdk
 	url = git@github.com:flathub/org.freedesktop.Sdk.Extension.openjdk.git
+	branch = branch/21.08
+[submodule "org.freedesktop.Sdk.Extension.openjdk17"]
+	path = org.freedesktop.Sdk.Extension.openjdk17
+	url = git@github.com:flathub/org.freedesktop.Sdk.Extension.openjdk17.git
+	branch = branch/21.08
+[submodule "org.freedesktop.Sdk.Extension.openjdk11"]
+	path = org.freedesktop.Sdk.Extension.openjdk11
+	url = git@github.com:flathub/org.freedesktop.Sdk.Extension.openjdk11.git
 	branch = branch/21.08
 [submodule "org.eclipse.Java"]
 	path = org.eclipse.Java

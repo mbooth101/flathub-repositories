@@ -16,7 +16,7 @@ import yaml
 # Note: For building on Freedesktop 18.08, bootstrap binaries must be taken from
 # Fedora 29 otherwise "`GLIBC_2.29' not found" error occurs
 #
-# Note: For building on Freedesktop 19.08, bootstrap binaries must be taken from
+# Note: For building on Freedesktop 19.08 or 20.08, bootstrap binaries must be taken from
 # Fedora 32 otherwise "`GLIBC_2.32' not found" error occurs
 
 # Custom dumper to get indentation right
@@ -25,7 +25,7 @@ class MyDumper(yaml.Dumper):
         return super(MyDumper, self).increase_indent(flow, False)
 
 if len(sys.argv) < 2:
-    fedora = "33"
+    fedora = "32"
 else:
     fedora = sys.argv[1]
 if len(sys.argv) < 3:
